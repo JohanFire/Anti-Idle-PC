@@ -1,7 +1,5 @@
 import tkinter
 import ctypes
-import socket
-import tkinter.messagebox
 
 from utils.single_instance_manager import SingleInstanceManager
 from utils.App import App
@@ -29,7 +27,7 @@ def main():
     root.configure(bg='#333333')
 
     app = App(root, userNumber=3, userType="minutes")
-    
+
     systemTray = SystemTray(root)
 
     # Start the single instance server
