@@ -1,4 +1,5 @@
 hidden/
+requirements-dev.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
