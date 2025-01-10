@@ -4,6 +4,7 @@ import ctypes
 from utils.App import App
 from utils.screen import render_center_of_screen
 from utils.constants import *
+from utils.image_handler import resource_path
 
 def main():
     root = tkinter.Tk()
@@ -21,7 +22,7 @@ def main():
     myAppID = 'JohanFire.Anti_Idle_PC'  # abitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myAppID)
 
-    root.iconbitmap(ICON)
+    root.iconbitmap(resource_path(ICON))
     root.mainloop()
 
 if __name__ == '__main__':

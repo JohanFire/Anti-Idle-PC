@@ -11,6 +11,7 @@ from pyautogui import press
 
 from utils.screen import render_center_of_screen
 from utils.constants import *
+from utils.image_handler import resource_path
 
 class App:
     def __init__(self, master: tkinter.Tk, userNumber: int = 3, userType: str = "minutes", keyToPress: str = "f16"):
@@ -110,7 +111,7 @@ class App:
         info_window.resizable(width=False, height=False)
         info_window.configure(bg='#333333')
 
-        # info_window.iconbitmap(ICON)
+        info_window.iconbitmap(resource_path(ICON))
 
         # blankSpace = tkinter.Label(info_window, text='', bg='#333333', pady=50).pack()
 
