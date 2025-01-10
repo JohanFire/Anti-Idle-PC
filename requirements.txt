@@ -1,3 +1,4 @@
 PyAutoGUI==0.9.54
 pyinstaller==6.11.1
 auto-py-to-exe==2.45.1
+pystray==0.19.5
