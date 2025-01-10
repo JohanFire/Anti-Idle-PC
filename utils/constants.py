@@ -1,0 +1,1 @@
+ICON: str = "assets/icon.ico"

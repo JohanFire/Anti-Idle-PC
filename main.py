@@ -1,7 +1,9 @@
 import tkinter
+import ctypes
 
 from utils.App import App
 from utils.screen import render_center_of_screen
+from utils.constants import *
 
 def main():
     root = tkinter.Tk()
@@ -16,6 +18,10 @@ def main():
 
     app = App(root, userNumber=3, userType="minutes")
 
+    myAppID = 'JohanFire.Anti_Idle_PC'  # abitrary string
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myAppID)
+
+    root.iconbitmap(ICON)
     root.mainloop()
 
 if __name__ == '__main__':

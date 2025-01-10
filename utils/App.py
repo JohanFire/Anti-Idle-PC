@@ -10,6 +10,7 @@ import tkinter
 from pyautogui import press
 
 from utils.screen import render_center_of_screen
+from utils.constants import *
 
 class App:
     def __init__(self, master: tkinter.Tk, userNumber: int = 3, userType: str = "minutes", keyToPress: str = "f16"):
@@ -101,12 +102,15 @@ class App:
 
     def info_action(self):
         info_window = tkinter.Toplevel(self.master)
+        
         info_window.title("Info")
-        # width, height, x, y = render_center_of_screen(info_window, width=400, height=200)
+        
         width, height, x, y = render_center_of_screen(info_window, width=320, height=90)
         info_window.geometry(f"{width}x{height}+{x}+{y}")
         info_window.resizable(width=False, height=False)
         info_window.configure(bg='#333333')
+
+        # info_window.iconbitmap(ICON)
 
         # blankSpace = tkinter.Label(info_window, text='', bg='#333333', pady=50).pack()
 
