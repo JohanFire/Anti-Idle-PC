@@ -14,7 +14,7 @@ def main():
     root.resizable(width=False, height=False)
     root.configure(bg='#333333')
 
-    app = App(root)
+    app = App(root, userNumber=3, userType="minutes")
 
     root.mainloop()
 

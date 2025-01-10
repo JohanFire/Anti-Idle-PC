@@ -3,23 +3,22 @@ Colors:
     - Pink: #FF3399
     - Gray background: #333333
 """
+from typing import Union
+import webbrowser
 
 import tkinter
-from tkinter import ttk
-import webbrowser
-import re
 from pyautogui import press
 
 from utils.screen import render_center_of_screen
 
 class App:
-    def __init__(self, master):
-        self.userNumber: int = 3
-        self.userType: str = "seconds"
+    def __init__(self, master: tkinter.Tk, userNumber: int = 3, userType: str = "minutes", keyToPress: str = "f16"):
+        self.userNumber: int = userNumber
+        self.userType: str = userType
+        self.keyToPress: str = keyToPress
         self.intervalUser: int = self.calculate_interval_ms(self.userNumber, self.userType)
         self.intervalStored: int = self.calculate_interval_ms(self.userNumber, self.userType)
         self.intervalToCompare: int = self.calculate_interval_ms(self.userNumber, self.userType)
-        self.pressKey: str = "f16"
 
         self.master = master
         # master.title("Anti Idle PC")
@@ -41,7 +40,7 @@ class App:
         self.idleEveryNumber.delete(0, "end")  # delete every existing value
         self.idleEveryNumber.insert(0, self.userNumber)  # stablish default value to 3 in index 0
 
-        self.cmbBoxSeconds = ttk.Combobox(
+        self.cmbBoxSeconds = tkinter.ttk.Combobox(
             self.frame, values=["seconds", "minutes", "hours"],
             font=("Arial", 10), width=10, state='readonly'
         )
@@ -69,7 +68,6 @@ class App:
             return number * 60 * 60 * 1000
 
     def get_idle_time(self, event = None) -> None:
-        print("Getting idle time")
         updatedUserNumber = int(self.idleEveryNumber.get())
         updatedUserType = str(self.cmbBoxSeconds.get())
         
@@ -95,9 +93,8 @@ class App:
 
     
     def press_key(self):
-        print(f"{self.pressKey} pressed")
-        press(self.pressKey)  # Simulate pressing the self.pressKey key
-        print(f"Waiting {self.intervalUser} ms")
+        print(f"{self.keyToPress} pressed")
+        press(self.keyToPress)  # Simulate pressing the self.keyToPress key
 
     def callback(self, url: str):
         webbrowser.open_new_tab(url)
