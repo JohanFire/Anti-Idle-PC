@@ -9,6 +9,6 @@
 - **[v3.0]** Manage Single Instance of the app.
 Handles ensuring that only a single instance of the application is running.
 If another instance is opened, it redirects to the running instance.
-- **[v2.0]** Add app icon to windows system tray.
 - **[v2.0]** When closing/minimizing, app will disappear from taskbar and will remain in the system tray.
+- **[v2.0]** Add app icon to windows system tray.
 - **[v1.0]** Wake up PC every certain time. 
