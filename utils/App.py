@@ -16,8 +16,10 @@ class App:
     def __init__(self, master):
         self.userNumber: int = 3
         self.userType: str = "seconds"
-        self.interval_ms: int = self.calculate_interval_ms(self.userNumber, self.userType)
-        self.pressKey: str = "f3"
+        self.intervalUser: int = self.calculate_interval_ms(self.userNumber, self.userType)
+        self.intervalStored: int = self.calculate_interval_ms(self.userNumber, self.userType)
+        self.intervalToCompare: int = self.calculate_interval_ms(self.userNumber, self.userType)
+        self.pressKey: str = "f16"
 
         self.master = master
         # master.title("Anti Idle PC")
@@ -33,7 +35,7 @@ class App:
         self.idleEveryNumber = tkinter.Spinbox(
             self.frame, from_=1, to='infinity', increment=1,
             font=("Arial", 10), width=6, # validate='key',
-            textvariable=self.idleEveryNumberVar , # command=self.get_idle_time
+            textvariable=self.idleEveryNumberVar, #command=self.get_idle_time
         )
         self.idleEveryNumber.grid(row=0, column=1, pady=10)
         self.idleEveryNumber.delete(0, "end")  # delete every existing value
@@ -49,15 +51,14 @@ class App:
 
 
         self.info_button = tkinter.Button(
-            self.frame, text='info', border=0, bg='#333333', fg='#636e72', font=("Arial", 14),
+            self.frame, text='info', border=0, bg='#333333', fg='#636e72', font=("Arial", 10),
             cursor='hand2', activebackground='#333333', activeforeground='#FFFFFF',
             command=self.info_action
-            ).grid(row=3, column=1, pady=25)
+            ).grid(row=3, column=1, pady=45)
 
         self.frame.pack()
 
         self.get_idle_time()
-        self.press_key()
 
     def calculate_interval_ms(self, number, unit):
         if unit == "seconds":
@@ -68,37 +69,35 @@ class App:
             return number * 60 * 60 * 1000
 
     def get_idle_time(self, event = None) -> None:
+        print("Getting idle time")
         updatedUserNumber = int(self.idleEveryNumber.get())
         updatedUserType = str(self.cmbBoxSeconds.get())
+        
+        if self.intervalStored != self.intervalUser:
+            self.intervalStored = self.intervalUser
+            self.intervalToCompare = self.intervalUser
 
-        # print(f"Default: {self.userNumber} {self.userType}")
-        # print(f"Wake every {updatedUserNumber} {updatedUserType}")
-        # print(f"DefaultType: {type(self.userNumber)} {type(self.userType)}")
-        # print(f"Wake every Type {type(updatedUserNumber)} {type(updatedUserType)}")
-        # print()
+        if self.intervalToCompare < 1000:
+            self.press_key()
+            # print(f"User interval: {self.intervalUser}")
+            self.intervalToCompare = self.intervalStored
 
-        self.master.after(1000, self.get_idle_time)  # Check for updates every second
-
+        print(f"Interval to compare: {self.intervalToCompare}")
+        self.intervalToCompare -= 1000
+        
         if self.userNumber != updatedUserNumber or self.userType != updatedUserType:
             self.userNumber = updatedUserNumber
             self.userType = updatedUserType
-            self.interval_ms = self.calculate_interval_ms(self.userNumber, self.userType)
-            print(f"Updated: {self.userNumber} {self.userType}, Interval: {self.interval_ms} ms")
+            self.intervalUser = self.calculate_interval_ms(self.userNumber, self.userType)
+            print(f"Updated: {self.userNumber} {self.userType}, Interval: {self.intervalUser} ms")
+        
+        self.master.after(1000, self.get_idle_time) # Check for updates every second
+
     
     def press_key(self):
         print(f"{self.pressKey} pressed")
         press(self.pressKey)  # Simulate pressing the self.pressKey key
-        print(f"Waiting {self.interval_ms} ms")
-        self.master.after(self.interval_ms, self.press_key)  # Schedule the next key press
-
-    # def press_key(self):
-    #     print(f"{self.pressKey} pressed")
-    #     press(self.pressKey)  # Simulate pressing the self.pressKey key
-    #     self.schedule_next_key_press()
-
-    # def schedule_next_key_press(self):
-    #     print(f"Waiting {self.interval_ms} ms")
-    #     self.master.after(self.interval_ms, self.press_key)  # Schedule the next key press
+        print(f"Waiting {self.intervalUser} ms")
 
     def callback(self, url: str):
         webbrowser.open_new_tab(url)
@@ -125,7 +124,7 @@ class App:
             cursor='hand2',
             )
         github.pack()
-        github.bind("<Button-1>", lambda e: self.callback("http://www.github.com/johanfire"))
+        github.bind("<Button-1>", lambda e: self.callback("https://github.com/JohanFire/Anti-Idle-PC"))
         
         johanfire = tkinter.Label(info_window, 
             text='www.johanfire.com', cursor='hand2',
