@@ -1,15 +1,11 @@
 import tkinter
 import ctypes
-from pystray import Icon, Menu, MenuItem
-import threading
-from PIL import Image, ImageDraw
 
 from utils.App import App
 from utils.system_tray import SystemTray
 from utils.screen import render_center_of_screen
 from utils.constants import *
 from utils.image_handler import resource_path
-import pystray
 
 def main():
     root = tkinter.Tk()
