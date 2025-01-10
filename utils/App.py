@@ -116,7 +116,7 @@ class App:
         # blankSpace = tkinter.Label(info_window, text='', bg='#333333', pady=50).pack()
 
         version = tkinter.Label(info_window, 
-            text='v1.0', 
+            text='v3.0', 
             bg='#333333', fg='white', font=("Arial", 12),
             ).pack()
 
