@@ -34,6 +34,8 @@ class SystemTray:
     def show_window(self):
         """ Show main window. """
         self.root.deiconify()
+        self.root.lift()
+        self.root.focus_force()
 
     def hide_window(self):
         """ Hide main window. """
@@ -44,6 +46,7 @@ class SystemTray:
         """ Close the app. """
         self.icon.stop()
         self.root.destroy()
+        self.root.quit()
 
     def run(self):
         """ Run the app in the System Tray. """
